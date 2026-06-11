@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Sharon Murei | Limitless</title>
+    <!-- Tailwind CSS for modern, sleek typography and layouts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js for the high-end 3D background effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,800;1,400&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #050508;
+            overflow-x: hidden;
+        }
+
+        /* Dark, immersive flower field background */
+        .flower-field-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 110vh; /* Extra height to allow smooth scroll parallax shifting */
+            /* High-quality, dark wildflower/rose field image */
+            background-image: linear-gradient(to bottom, rgba(5, 5, 8, 0.75), rgba(11, 11, 15, 0.95)), 
+                              url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        /* Glassmorphism overlays inspired by premium UI/UX design tools */
+        .glass-panel {
+            background: rgba(10, 10, 16, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 30%, #ff4d6d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Smooth custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0b0f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff4d6d;
+            border-radius: 3px;
+        }
+
+        /* JavaScript Scroll Reveal CSS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Blinking cursor for typewriter effect */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background-color: #fb7185;
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="text-slate-200 antialiased selection:bg-rose-500 selection:text-white">
+
+    <!-- Layer 1: Parallax Flower Field Background Image -->
+    <div class="flower-field-bg" id="field-bg"></div>
+
+    <!-- Layer 2: 3D Rotating Crimson Heart Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- Layer 3: Main Content Layer -->
+    <div class="content-layer min-h-screen flex flex-col justify-between">
+        
+        <!-- Header / Brand Element -->
+        <header class="w-full max-w-7xl mx-auto px-6 py-8 flex justify-between items-center reveal active">
+            <div class="text-xs font-bold tracking-[0.3em] text-rose-500 uppercase">Perspective // 2026</div>
+            <div class="h-[1px] flex-grow mx-6 bg-gradient-to-r from-rose-500/30 to-transparent hidden sm:block"></div>
+            <div class="text-xs tracking-widest text-slate-400 font-light">DESIGNED FOR SHARON MUREI</div>
+        </header>
+
+        <!-- Main Section -->
+        <main class="w-full max-w-4xl mx-auto px-4 sm:px-6 my-auto py-12">
+            <div class="glass-panel p-8 sm:p-16 rounded-3xl shadow-2xl relative overflow-hidden group">
+                <!-- Subtle internal ambient glow -->
+                <div class="absolute -top-24 -left-24 w-48 h-48 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <!-- JS Typewriter Tagline -->
+                <div class="mb-8 reveal active">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20 uppercase tracking-wider">
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span> 
+                        <span id="typewriter-text"></span><span class="cursor"></span>
+                    </span>
+                </div>
+
+                <!-- Title Dedicated to Sharon -->
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-8 leading-[1.1] reveal active">
+                    To <span class="text-gradient">Sharon Murei</span>: <br>
+                    The Architecture of Becoming.
+                </h1>
+
+                <!-- The Speech Content (Using Scroll Reveal) -->
+                <div class="space-y-6 text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+                    <p class="reveal">
+                        The world operates on default settings, designed to bend individuals toward predictability. But your trajectory, Sharon, was never built for compliance with the ordinary. You possess an innate complexity—a deliberate convergence of intellect, resilience, and ambition that cannot be neutralized by temporary friction or systemic noise.
+                    </p>
+                    <blockquote class="border-l-2 border-rose-500 pl-4 my-6 italic text-slate-400 font-normal reveal">
+                        "Do not mistake a season of recalibration for a lack of momentum. Real depth is forged in quiet inflection points, not loud validations."
+                    </blockquote>
+                    <p class="reveal">
+                        When the landscape shifts or demands more of you, look at it as a structural test of your vision. You are the architect of your outcome. Every pressure point is merely raw data meant to refine your execution, sharpen your focus, and accelerate your growth. 
+                    </p>
+                    <p class="reveal">
+                        Step into your space with unapologetic authority. Let the friction sharpen you, let the ambiguity drive your strategic intuition, and never apologize for the space you take up while building your legacy. You are entirely capable of redefining the parameters of what is possible.
+                    </p>
+                </div>
+
+                <!-- Call to Action Footer inside the card -->
+                <div class="mt-12 pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 reveal">
+                    <div class="text-sm text-slate-400">
+                        Keep moving forward. No notes. No compromises.
+                    </div>
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 text-white font-medium text-sm transition-all duration-300 shadow-lg shadow-rose-950/40 hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
+                        Return to Top
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="w-full max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-slate-900/50 text-xs text-slate-500 tracking-wider reveal">
+            <div>
+                <p class="font-semibold text-slate-400 uppercase mb-1">Target</p>
+                <p>S. Murei // Absolute Evolution</p>
+            </div>
+            <div>
+                <p class="font-semibold text-slate-400 uppercase mb-1">Engine</p>
+                <p>Three.js WebGL & Vanilla JS</p>
+            </div>
+            <div>
+                <p class="font-semibold text-slate-400 uppercase mb-1">Matrix</p>
+                <p>Hybrid Field Parallax</p>
+            </div>
+            <div class="text-right">
+                <p class="font-semibold text-slate-400 uppercase mb-1">Status</p>
+                <p class="text-rose-400 font-medium">Unstoppable • 100%</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT: 3D ENGINE & UI INTERACTIONS    -->
+    <!-- ========================================== -->
+    <script>
+        // --- 1. JAVASCRIPT UI: TYPEWRITER EFFECT ---
+        const typewriterText = "Manifest Velocity";
+        const typewriterElement = document.getElementById('typewriter-text');
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < typewriterText.length) {
+                typewriterElement.textContent += typewriterText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 100); 
+            }
+        }
+        setTimeout(typeWriter, 800);
+
+
+        // --- 2. JAVASCRIPT UI: SCROLL REVEAL ANIMATIONS ---
+        const reveals = document.querySelectorAll('.reveal');
+        const observerOptions = {
+            threshold: 0.1, 
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const scrollObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        reveals.forEach(reveal => {
+            scrollObserver.observe(reveal);
+        });
+
+
+        // --- 3. JAVASCRIPT 3D ENGINE: THREE.JS CRYSTAL HEART & PARALLAX ---
+        const fieldBg = document.getElementById('field-bg');
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); 
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // MATHEMATICAL 3D HEART GEOMETRY GENERATION
+        const heartShape = new THREE.Shape();
+        const x = 0, y = 0;
+        
+        // Drawing a smooth vector 2D path shape of a love heart
+        heartShape.moveTo( x + 0.5, y + 0.5 );
+        heartShape.bezierCurveTo( x + 0.5, y + 0.5, x + 0.4, y, x, y );
+        heartShape.bezierCurveTo( x - 0.6, y, x - 0.6, y + 0.7, x - 0.6, y + 0.7 );
+        heartShape.bezierCurveTo( x - 0.6, y + 1.1, x - 0.3, y + 1.54, x + 0.5, y + 1.9 );
+        heartShape.bezierCurveTo( x + 1.3, y + 1.54, x + 1.6, y + 1.1, x + 1.6, y + 0.7 );
+        heartShape.bezierCurveTo( x + 1.6, y + 0.7, x + 1.6, y, x + 1.2, y );
+        heartShape.bezierCurveTo( x + 0.8, y, x + 0.5, y + 0.5, x + 0.5, y + 0.5 );
+
+        // Extruding the 2D heart into a high-end geometric 3D object
+        const extrudeSettings = { 
+            depth: 0.4, 
+            bevelEnabled: true, 
+            bevelSegments: 3, 
+            steps: 1, 
+            bevelSize: 0.15, 
+            bevelThickness: 0.15 
+        };
+        
+        const geometry = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
+        // Center alignment translation matrix
+        geometry.center();
+
+        // Crystal Crimson Material
+        const heartMaterial = new THREE.MeshPhongMaterial({
+            color: 0xe6123c,
+            shininess: 100,
+            specular: 0xff859d,
+            side: THREE.DoubleSide,
+            flatShading: true // Creates the modern architectural gemstone/faceted look
+        });
+
+        const heartMesh = new THREE.Mesh(geometry, heartMaterial);
+        
+        // Inverting the mathematical geometry orientation so it stands perfectly upright
+        heartMesh.rotation.z = Math.PI;
+
+        const heartGroup = new THREE.Group();
+        heartGroup.add(heartMesh);
+        scene.add(heartGroup);
+
+        // Responsive position layout
+        function setResponsiveLayout() {
+            if (window.innerWidth < 768) {
+                heartGroup.position.set(0, -0.2, -1.5);
+                heartGroup.scale.set(1.4, 1.4, 1.4);
+            } else {
+                heartGroup.position.set(2.4, 0, 0);
+                heartGroup.scale.set(2.2, 2.2, 2.2);
+            }
+        }
+        setResponsiveLayout();
+
+        // Premium Cinematic Studio Lighting Configuration
+        const ambientLight = new THREE.AmbientLight(0x0e0e14, 4);
+        scene.add(ambientLight);
+        
+        const primaryLight = new THREE.DirectionalLight(0xff4d6d, 6);
+        primaryLight.position.set(5, 6, 4);
+        scene.add(primaryLight);
+        
+        const specularFillLight = new THREE.PointLight(0xff003c, 5, 30);
+        specularFillLight.position.set(-5, -4, 3);
+        scene.add(specularFillLight);
+
+        // Blue rim glow accent lighting to give it that Claude/Figma neon edge depth
+        const rimGlowLight = new THREE.DirectionalLight(0x2b6cb0, 3);
+        rimGlowLight.position.set(-3, 3, -2);
+        scene.add(rimGlowLight);
+
+        camera.position.z = 6;
+
+        // Scroll Logic for Rotation and Parallax
+        let scrollY = 0;
+        let targetRotationY = 0;
+        let targetRotationX = 0;
+
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+            
+            // Heart mesh 3D rotation tied directly to scroll mechanics
+            targetRotationY = scrollY * 0.006;
+            targetRotationX = scrollY * 0.002;
+
+            // Background wildflower bed matrix shift (Parallax layer execution)
+            fieldBg.style.transform = `translateY(${-scrollY * 0.08}px)`;
+        });
+
+        // Window resize layout adapter
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            setResponsiveLayout();
+        });
+
+        // Smooth Interpolation Animation Loop (Lerping)
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            // Continuous luxury slow breathing loop combined with active scroll rotations
+            heartGroup.rotation.y = (Math.sin(elapsedTime * 0.5) * 0.15) + targetRotationY;
+            heartGroup.rotation.x = (elapsedTime * 0.05) + targetRotationX;
+            
+            // Micro-parallax scale physics matching down-scroll tracking updates
+            heartGroup.position.z += ((-scrollY * 0.0008) - heartGroup.position.z) * 0.05;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
